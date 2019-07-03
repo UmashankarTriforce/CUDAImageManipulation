@@ -5,7 +5,11 @@ ENV UNAME nvidiacuda
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt install --yes pulseaudio-utils sudo \
- build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget libasound* libgtk2.0-dev
+ build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget libasound* libgtk2.0-dev python3-pip \
+ libxcb*
+
+#pip files
+RUN sudo pip3 install PyQt5
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
