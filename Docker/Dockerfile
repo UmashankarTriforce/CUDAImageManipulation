@@ -5,7 +5,7 @@ ENV UNAME nvidiacuda
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt install --yes pulseaudio-utils sudo \
- build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget
+ build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget libasound* libgtk2.0-dev
 
 # Set up the user
 RUN export UNAME=$UNAME UID=1000 GID=1000 && \
@@ -31,7 +31,6 @@ ENV QT_VERSION_SCRIPT=594
 RUN sudo wget https://download.qt.io/archive/qt/${QT_VERSION_A}/${QT_VERSION_B}/qt-opensource-linux-x64-${QT_VERSION_B}.run
 RUN sudo chmod +x qt-opensource-linux-x64-${QT_VERSION_B}.run 
 COPY qt-installer-noninteractive.qs /qt-installer-noninteractive.qs
-RUN sudo apt-get install --yes libgtk2.0-dev
 RUN sudo ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-installer-noninteractive.qs \
  --verbose --platform minimal
 
