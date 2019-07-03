@@ -10,7 +10,7 @@ echo "Found and using ${DOCKER_IMAGE_ID}"
 
 USER_UID=$(id -u)
 
-docker run -t -i -d \
+QT_GRAPHICSSYSTEM="native" docker run -t -i -d \
   --runtime nvidia \
   --volume=/run/user/${USER_UID}/pulse:/run/user/1000/pulse \
   --name cvmms \

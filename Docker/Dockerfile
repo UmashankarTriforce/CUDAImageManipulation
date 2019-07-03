@@ -6,7 +6,7 @@ ENV UNAME nvidiacuda
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive apt install --yes pulseaudio-utils sudo \
  build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget libasound* libgtk2.0-dev python3-pip \
- libxcb*
+ libxcb* git vim
 
 #pip files
 RUN sudo pip3 install PyQt5
@@ -38,5 +38,7 @@ COPY qt-installer-noninteractive.qs /qt-installer-noninteractive.qs
 RUN sudo ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-installer-noninteractive.qs \
  --verbose --platform minimal
 
+#git repo
+RUN cd && git pull https://github.com/UmashankarTriforce/CUDAImageManipulation
 # run
 CMD ["bash"]
