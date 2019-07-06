@@ -3,16 +3,31 @@ MAINTAINER Umashankar Sivakumar <umashankarsivakumar@gmail.com>
 
 ENV UNAME nvidiacuda
 
+
+RUN cp /etc/apt/sources.list /etc/apt/sources.list~ && \
+    sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+
 RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt install --yes pulseaudio-utils sudo \
- build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 wget libasound* libgtk2.0-dev python3-pip \
- libxcb* git vim
+    && DEBIAN_FRONTEND=noninteractive apt install --yes pulseaudio-util \
+    build-essential libgl1-mesa-dev libassimp-dev libfontconfig1 libdbus-1-3 libasound* libgtk2.0-dev python3-pip \
+    sudo lsb-release bash-completion git vim wget curl \
+    ccache perl python build-dep qtbase5-dev \
+    "^libxcb.*" libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev \
+    "libatspi2*" libdbus-1-dev \
+    flex bison gperf libicu-dev libxslt-dev ruby \
+    libssl-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libfontconfig1-dev libcap-dev libbz2-dev \
+    libgcrypt11-dev libpci-dev libnss3-dev libxcursor-dev libxcomposite-dev libxdamage-dev libxrandr-dev libdrm-dev    \
+    libfontconfig1-dev libxtst-dev libasound2-dev libcups2-dev libpulse-dev libudev-dev libssl-dev \
+    libasound2-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
-#pip files
-RUN sudo pip3 install PyQt5
 
-# Set up the user
-RUN export UNAME=$UNAME UID=1000 GID=1000 && \
+RUN wget https://download.qt.io/archive/qt/5.9/5.9.4/qt-opensource-linux-x64-5.9.4.run && chmod +x qt-opensource-linux-x64-$5.9.4.run 
+COPY qt-installer-noninteractive.qs /qt-installer-noninteractive.qs
+RUN ./qt-opensource-linux-x64-5.9.4.run --script qt-installer-noninteractive.qs \
+ --verbose --platform minimal && \
+
+    sudo pip3 install PyQt5 && \
+    export UNAME=$UNAME UID=1000 GID=1000 && \
     mkdir -p "/home/${UNAME}" && \
     echo "${UNAME}:x:${UID}:${GID}:${UNAME} User,,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
     echo "${UNAME}:x:${UID}:" >> /etc/group && \
@@ -27,18 +42,5 @@ COPY pulse-client.conf /etc/pulse/client.conf
 
 USER $UNAME
 ENV HOME /home/nvidiacuda
-
-ENV QT_VERSION_A=5.9
-ENV QT_VERSION_B=5.9.4
-ENV QT_VERSION_SCRIPT=594
-
-RUN sudo wget https://download.qt.io/archive/qt/${QT_VERSION_A}/${QT_VERSION_B}/qt-opensource-linux-x64-${QT_VERSION_B}.run
-RUN sudo chmod +x qt-opensource-linux-x64-${QT_VERSION_B}.run 
-COPY qt-installer-noninteractive.qs /qt-installer-noninteractive.qs
-RUN sudo ./qt-opensource-linux-x64-${QT_VERSION_B}.run --script qt-installer-noninteractive.qs \
- --verbose --platform minimal
-
-#git repo
-RUN cd && git pull https://github.com/UmashankarTriforce/CUDAImageManipulation
-# run
+RUN cd && git clone https://github.com/UmashankarTriforce/CUDAImageManipulation.git
 CMD ["bash"]

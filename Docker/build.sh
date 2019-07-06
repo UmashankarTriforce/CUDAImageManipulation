@@ -15,6 +15,7 @@ QT_GRAPHICSSYSTEM="native" docker run -t -i -d \
   --volume=/run/user/${USER_UID}/pulse:/run/user/1000/pulse \
   --name cvmms \
   --env="DISPLAY" \
+  -p 54022:22 \
   --env="QT_X11_NO_MITSHM=1" \
   --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
   ${DOCKER_IMAGE_ID} \
