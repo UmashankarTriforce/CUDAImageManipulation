@@ -26,7 +26,7 @@ COPY qt-installer-noninteractive.qs /qt-installer-noninteractive.qs
 RUN ./qt-opensource-linux-x64-5.9.4.run --script qt-installer-noninteractive.qs \
  --verbose --platform minimal && \
 
-    sudo pip3 install PyQt5 && \
+    sudo pip3 install PyQt5 pycuda && \
     export UNAME=$UNAME UID=1000 GID=1000 && \
     mkdir -p "/home/${UNAME}" && \
     echo "${UNAME}:x:${UID}:${GID}:${UNAME} User,,,:/home/${UNAME}:/bin/bash" >> /etc/passwd && \
