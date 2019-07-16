@@ -1,0 +1,5 @@
+pycuda
+scikit-cuda
+matplotlib
+pillow
+flask
