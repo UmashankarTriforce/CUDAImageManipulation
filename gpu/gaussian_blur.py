@@ -2,7 +2,7 @@ from __future__ import division
 from pycuda import gpuarray
 import numpy as np
 from skcuda import fft,linalg
-import pycuda.driver as cuda
+
 
 
 def cufft_conv(x, y):
@@ -35,6 +35,7 @@ def cufft_conv(x, y):
     x_fft.gpudata.free()
     y_fft.gpudata.free()
     out_gpu.gpudata.free()
+
 
     return conv_out
 
@@ -71,15 +72,11 @@ def gaussian_ker(sigma):
 
 def gaussian_blur(img, blur):
 
-    device = cuda.Device(0)
-    ctx = device.make_context()
-
     img_blurred = np.zeros_like(img)
     ker = gaussian_ker(np.int32(blur))
     
     for k in range(3):
         img_blurred[:,:,k] = conv_2d(ker, img[:,:,k])
 
-    ctx.pop()
-    return str(img_blurred)
+    return img_blurred
 

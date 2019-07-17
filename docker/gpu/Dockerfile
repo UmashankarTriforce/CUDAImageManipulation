@@ -1,4 +1,4 @@
-FROM nvidia/cuda
+FROM nvcr.io/nvidia/cuda:10.1-devel-ubuntu18.04
 
 RUN apt-get update && \
     apt-get install -y python3-pip 

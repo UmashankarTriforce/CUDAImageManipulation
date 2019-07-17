@@ -3,19 +3,32 @@ version: '2.3'
 services:
 
   cuda:
-    image: cuda/image-renderer
+    image: image-renderer
     build: 
       context: ../
       dockerfile: docker/gpu/Dockerfile
-    container_name: gpu
+    container_name: image_renderer
     runtime: nvidia
     restart: always
     volumes:
       - ../gpu:/gpu
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
+
+  nodejs:
+    image: middleware
+    build:
+      context: ../
+      dockerfile: docker/server/Dockerfile
+    container_name: middleware
+    volumes:
+      - ../server:/server
+    restart: always
     ports:
-      - 8081:5000
+      - 8082:3000
+    links:
+      - cuda
+    working_dir: /server
   
 
 
