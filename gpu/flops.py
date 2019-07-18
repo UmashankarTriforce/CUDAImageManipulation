@@ -5,8 +5,8 @@ from skcuda import cublas
 from time import time
 
 m = 5000
-n = 8000
-k = 8000
+n = 10000
+k = 10000
 
 
 def compute_gflops(precision='S'):
