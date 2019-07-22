@@ -25,8 +25,12 @@ def gauss():
     ctx = initialize()
     # img = plt.imread('/gpu/test.jpg')
     out = work()
+    output = {
+        "Single" : out[0],
+        "Double" : out[1]
+    }
     destroy(ctx)
 
-    return jsonify(out)
+    return jsonify(output)
 
 app.run('0.0.0.0',debug=True, port = 80)
