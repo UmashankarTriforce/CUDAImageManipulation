@@ -15,7 +15,7 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
 
-  nodejs:
+  expressjs:
     image: middleware
     build:
       context: ../
@@ -24,11 +24,26 @@ services:
     volumes:
       - ../server:/server
     restart: always
-    ports:
-      - 8082:3000
     links:
       - cuda
+    ports: 
+      - 8083:80
     working_dir: /server
+
+  react:
+    image: frontend
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    container_name: front-end
+    volumes:
+      - ../app:/app
+    restart: always
+    ports:
+      - 80:3000
+    links:
+      - expressjs
+    working_dir: /app
   
 
 
