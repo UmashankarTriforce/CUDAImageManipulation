@@ -4,12 +4,8 @@ import numpy as np
 from skcuda import cublas
 from time import time
 
-m = 1000
-n = 2000
-k = 2000
 
-
-def compute_gflops(precision='S'):
+def compute_gflops(m, k, n,precision):
 
 
     if precision=='S':
@@ -56,8 +52,8 @@ def compute_gflops(precision='S'):
 
     return gflops
 
-def work():
+def work(m, k, n):
     result = []
-    result.append(compute_gflops('S'))
-    result.append(compute_gflops('D'))
+    result.append(compute_gflops(m, k, n, 'S'))
+    result.append(compute_gflops(m, k, n, 'D'))
     return result

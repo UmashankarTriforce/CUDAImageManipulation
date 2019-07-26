@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify, Response
-# from gaussian_blur import gaussian_blur
 from flops import work
-from matplotlib import pyplot as plt
 import pycuda.driver as cuda
 
 app = Flask(__name__)
@@ -17,14 +15,15 @@ def initialize():
 def destroy(ctx):
     ctx.pop()
 
-@app.route('/bench/')
+@app.route('/bench', methods = ["GET", "POST"])
 def gauss():
 
-    # content = request.json
-    # img = content['matrix']
+    content = request.json
+    m = int(content['m'])
+    k = int(content['k'])
+    n = int(content['n'])
     ctx = initialize()
-    # img = plt.imread('/gpu/test.jpg')
-    out = work()
+    out = work(m, k, n)
     output = {
         "Single" : out[0],
         "Double" : out[1]
