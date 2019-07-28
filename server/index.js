@@ -4,7 +4,7 @@ const app = express()
  
 app.get('/', function (req, res) {
   
-  fetch('http://172.18.0.2/bench',
+  fetch('http://172.19.1.2/bench',
   {
     method : 'POST',
     headers: {"Content-Type": "application/json"},
