@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CVMMS",
+  "name": "CUDA Visual Media Manipulation",
   "icons": [
     {
       "src": "favicon.ico",
