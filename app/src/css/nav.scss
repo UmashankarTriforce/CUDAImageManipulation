@@ -1,0 +1,20 @@
+//variable
+$font-color: rgb(64, 175, 79);
+$background-color: #131313d5;
+#nav {
+    width: 100%;
+    float: left;
+    margin: 0 0 3em 0;
+    padding: 0;
+    list-style: none;
+    background-color: $background-color;
+    color: $font-color;
+    li {
+        float: right;
+        a {
+            display: block;
+            padding: 8px 15px;
+            text-decoration: none;
+        }
+    }
+}
